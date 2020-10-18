@@ -8,15 +8,12 @@ if (!$data) {
 ?>
     <!DOCTYPE html>
     <html>
-
     <head>
         <title>Rectangle Task</title>
         <link rel="stylesheet" type="text/css" href="./assets/css/table.css">
     </head> 
-
     <body>
         <h1>Last 5 items inserted</h1>
-
         <table class="table  table-hover">
             <thead>
                 <tr>
@@ -33,19 +30,18 @@ if (!$data) {
                 <?php
                 foreach ($data as $key => $value) {
                     echo "<tr>
-				 		<td>$value->id</td>
-				 		<td>$value->width</td>
-				 		<td>$value->height</td>
-				 		<td>$value->average</td>
-				 		<td>$value->area</td>
-				 		<td>$value->square_area</td>
-				 		<td>$value->created_at</td>
-				 	</tr>";
+                        <td>$value->id</td>
+                        <td>$value->width</td>
+                        <td>$value->height</td>
+                        <td>$value->average</td>
+                        <td>$value->area</td>
+                        <td>$value->square_area</td>
+                        <td>$value->created_at</td>
+                    </tr>";
                 }
                 ?>
             </tbody>
     </body>
-
     </html>
 <?php
 }
