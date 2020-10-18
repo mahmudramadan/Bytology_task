@@ -1,27 +1,22 @@
 <?php
 include 'ConnectDb.php';
-class Main_model  
+class MainModel  
 {
     private $db;
     private static $instance = null;
-
     public function __construct()
     {
         $this->db = new ConnectDb;
     }
-
     public static function getInstance()
     {
         if (!self::$instance) {
-            self::$instance = new Main_model();
+            self::$instance = new MainModel();
         }
-
         return self::$instance;
     }
-
-    public function GetWhere(string $table,string $selected,array $cond=array(),string $order_by,string $order_type,int $limit = 5)
+    public function getWhere(string $table,string $selected,array $cond=array(),string $orderBy,string $orderType,int $limit = 5)
     {
-
         $sWhere = '';
         if (count($cond) > 0 ) {
             $sWhere .= 'WHERE ';
@@ -33,7 +28,7 @@ class Main_model
         $this->db->query("SELECT $selected
                          FROM $table  
                          $sWhere
-                        ORDER BY $order_by $order_type
+                        ORDER BY $orderBy $orderType
                         LIMIT $limit
                         ");
         if ($this->db->rowCount() > 0 ) {
@@ -43,18 +38,17 @@ class Main_model
             return $results;
         }
     }
-
     public function addRow(string $table ,array $data) 
     {
         $columns = '';
-        $columns_val = '';
+        $columnsVals = '';
         foreach ($data as $key => $value) {
             $columns .= "$key,";
-            $columns_val .= ":$key,";
+            $columnsVals .= ":$key,";
         }
         $columns = substr_replace($columns, "", -1);
-        $columns_val = substr_replace($columns_val, "", -1);
-        $this->db->query("INSERT INTO $table ($columns) VALUES($columns_val)");
+        $columnsVals = substr_replace($columnsVals, "", -1);
+        $this->db->query("INSERT INTO $table ($columns) VALUES($columnsVals)");
         // Bind values
         foreach ($data as $key => $value) {
             $this->db->bind(":$key", $value);

@@ -1,7 +1,7 @@
 <?php
 include './classes/RectangleClass.php';
 $rectangle = new RectangleClass();
-$data = $rectangle->get_last_elements(5);
+$data = $rectangle->getLastElements(5);
 if (!$data) {
     echo "there is not data added yet";
 } else {

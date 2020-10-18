@@ -2,7 +2,7 @@
  // error_reporting(0);
 error_reporting(-1);
 ini_set('display_errors', 1);
-include 'Main_model.php';
+include 'MainModel.php';
 class RectangleClass 
 {
     /**
@@ -11,56 +11,57 @@ class RectangleClass
     private $table = 'rectangle';
     private $width;
     private $height;
+    private $mainModel;
     public function __construct()
     {
-        $this->Main_model = new Main_model;
+        $this->mainModel = new MainModel;
     }
-    public function set_data()
+    public function setData()
     {
-        $this->set_width_or_height('width');
-        $this->set_width_or_height('height');
+        $this->setWidthOrHeight('width');
+        $this->setWidthOrHeight('height');
     }
-    public function set_width_or_height($var_name , $error = 0 )
+    public function setWidthOrHeight($varName , $error = 0 )
     {
-        echo $error != 0 ? "Error $var_name must be integer, Please re-enter $var_name value:" : "Enter $var_name value:";
+        echo $error != 0 ? "Error $varName must be integer, Please re-enter $varName value:" : "Enter $varName value:";
         echo "\n"; 
         $number = fgets(STDIN); 
           if ( intval($number) > 0 ) {
-             $this->$var_name = intval($number);
+             $this->$varName = intval($number);
         }else{
-            return $this->set_width_or_height($var_name  , 1 );
+            return $this->setWidthOrHeight($varName  , 1 );
         }
     }
-    public function get_average(): float
+    public function getAverage(): float
     {
         return ($this->width + $this->height) / 2;
     }
-    public function get_area(): int{
+    public function getArea(): int{
         return $this->width * $this->height;
     }
-    public function get_area_square(): int{
-        return $this->get_area() * $this->get_area();
+    public function getAreaSquare(): int{
+        return $this->getArea() * $this->getArea();
     }
-    public function save_data()
+    public function saveData()
     {
         $data['width'] = $this->width;
         $data['height'] = $this->height;
-        $data['average'] = $this->get_average();
-        $data['area'] = $this->get_area();
-        $data['square_area'] = $this->get_area_square();
+        $data['average'] = $this->getAverage();
+        $data['area'] = $this->getArea();
+        $data['square_area'] = $this->getAreaSquare();
         $data['created_at'] = date('Y-m-d H:i:s');
-        if($this->Main_model->addRow($this->table, $data)){
+        if($this->mainModel->addRow($this->table, $data)){
              echo "Data inserted successfully \n"; 
         }else{
              echo "An error, please try again \n";
          }
     }
-    public function get_last_elements(int $limit = 5)
+    public function getLastElements(int $limit = 5)
     {
-        $data = $this->Main_model->GetWhere($this->table,'*',array(),'id','desc',$limit);
+        $data = $this->mainModel->getWhere($this->table,'*',array(),'id','desc',$limit);
         return $data;
     }
-    public function show_data_in_terminal($data)
+    public function showDataInTerminal($data)
     {
         if ($data) {
             echo "Last inserted items are : \n";
